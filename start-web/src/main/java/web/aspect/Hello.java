@@ -1,13 +1,12 @@
-package web.controller;
+package web.aspect;
 
-import com.wojustme.myframe.restful.annotation.Action;
-import com.wojustme.myframe.restful.annotation.Controller;
-import com.wojustme.myframe.restful.bean.JSONData;
-import com.wojustme.myframe.restful.bean.Param;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import web.aspect.Hello;
-import web.bean.Person;
+import com.wojustme.myframe.ioc.BeanComponet;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 /**
  * ////////////////////////////////////////////////////////////////////
  * //                          _ooOoo_                               //
@@ -32,29 +31,12 @@ import web.bean.Person;
  * //             佛祖保佑       永无BUG     永不修改                   //
  * ////////////////////////////////////////////////////////////////////
  * <p>
- * wojustme于2017/6/23祈祷...
+ * wojustme于2017/7/1祈祷...
  */
-/**
- * 用于生成JSON的POJO对象
- */
-@Controller("/test")
-@Hello
-public class TestController {
-  private static final Logger LOGGER = LoggerFactory.getLogger(TestController.class);
 
-  @Action(
-      url = "/testJson"
-  )
-	public JSONData index(Param param) {
-		Person person = new Person("xu", 21);
-		return new JSONData(person);
-	}
-  @Action(
-      url = "/testJson2"
-  )
-	public JSONData index1(Param param) {
-
-		Person person = new Person("xuewewe", 21);
-		return new JSONData(person);
-	}
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@BeanComponet
+// 自定义一个hello注解切入面
+public @interface Hello {
 }

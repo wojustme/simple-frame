@@ -1,13 +1,13 @@
-package web.controller;
+package web.aspect;
 
-import com.wojustme.myframe.restful.annotation.Action;
+import com.wojustme.myframe.aop.annotation.Aspect;
+import com.wojustme.myframe.aop.proxy.AspectProxy;
 import com.wojustme.myframe.restful.annotation.Controller;
-import com.wojustme.myframe.restful.bean.JSONData;
-import com.wojustme.myframe.restful.bean.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import web.aspect.Hello;
-import web.bean.Person;
+
+import java.lang.reflect.Method;
+
 /**
  * ////////////////////////////////////////////////////////////////////
  * //                          _ooOoo_                               //
@@ -32,29 +32,29 @@ import web.bean.Person;
  * //             佛祖保佑       永无BUG     永不修改                   //
  * ////////////////////////////////////////////////////////////////////
  * <p>
- * wojustme于2017/6/23祈祷...
+ * wojustme于2017/7/1祈祷...
  */
-/**
- * 用于生成JSON的POJO对象
- */
-@Controller("/test")
-@Hello
-public class TestController {
-  private static final Logger LOGGER = LoggerFactory.getLogger(TestController.class);
+@Aspect(Hello.class)
+public class HelloAspect extends AspectProxy {
 
-  @Action(
-      url = "/testJson"
-  )
-	public JSONData index(Param param) {
-		Person person = new Person("xu", 21);
-		return new JSONData(person);
-	}
-  @Action(
-      url = "/testJson2"
-  )
-	public JSONData index1(Param param) {
+  private static final Logger LOGGER = LoggerFactory.getLogger(HelloAspect.class);
 
-		Person person = new Person("xuewewe", 21);
-		return new JSONData(person);
-	}
+  private long begin;
+
+  @Override
+  public void before(Class<?> cls, Method method, Object[] params) {
+    LOGGER.debug("-------hello begin-------");
+    begin = System.currentTimeMillis();
+  }
+
+  @Override
+  public void after(Class<?> cls, Method method, Object[] params) {
+    LOGGER.debug(String.format("time: %dms", System.currentTimeMillis() - begin));
+    LOGGER.debug("-------hello after-------");
+  }
+
+  @Override
+  public boolean intercept(Class<?> cls, Method method, Object[] params) {
+    return true;
+  }
 }

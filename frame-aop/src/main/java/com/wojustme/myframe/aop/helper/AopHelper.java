@@ -79,7 +79,6 @@ public final class AopHelper {
     Class<? extends Annotation> annotation = aspect.value();
     if (annotation != null && !annotation.equals(Aspect.class)) {
       Set<Class<?>> annotatedSetByAnnoClass = ClassFactory.getClassSetByAnnotation(annotation);
-      System.out.println(annotatedSetByAnnoClass);
       targetClassSet.addAll(annotatedSetByAnnoClass);
     }
     return targetClassSet;
