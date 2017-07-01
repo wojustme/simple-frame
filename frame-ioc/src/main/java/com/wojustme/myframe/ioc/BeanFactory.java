@@ -78,4 +78,7 @@ public class BeanFactory {
     return (T) BEAN_MAP.get(clazz);
   }
 
+  public static void setBean(Class<?> targetClass, Object proxy) {
+    BEAN_MAP.put(targetClass, proxy);
+  }
 }

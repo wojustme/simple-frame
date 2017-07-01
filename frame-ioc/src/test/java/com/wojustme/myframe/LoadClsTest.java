@@ -36,7 +36,7 @@ public class LoadClsTest {
   @Test
   public void testOutput() {
 
-    System.out.println(ClassFactory.getAnnotatedSetByAnnoClass(MyServer.class));
+    System.out.println(ClassFactory.getClassSetByAnnotation(MyServer.class));
 
   }
 

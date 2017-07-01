@@ -9,29 +9,17 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>frame-restful</artifactId>
+  <artifactId>frame-aop</artifactId>
 
   <dependencies>
-    <!-- servlet:J2EE中HTTP必须的组件 -->
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <version>4.0.0-b01</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.wojustme.myframe</groupId>
-      <artifactId>frame-util</artifactId>
-      <version>0.1</version>
+      <groupId>cglib</groupId>
+      <artifactId>cglib</artifactId>
+      <version>3.2.5</version>
     </dependency>
     <dependency>
       <groupId>com.wojustme.myframe</groupId>
       <artifactId>frame-ioc</artifactId>
-      <version>0.1</version>
-    </dependency>
-    <dependency>
-      <groupId>com.wojustme.myframe</groupId>
-      <artifactId>frame-aop</artifactId>
       <version>0.1</version>
     </dependency>
   </dependencies>

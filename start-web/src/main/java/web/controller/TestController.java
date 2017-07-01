@@ -44,7 +44,6 @@ public class TestController {
       url = "/testJson"
   )
 	public JSONData index(Param param) {
-    TestController.LOGGER.info("hehe");
 		Person person = new Person("xu", 21);
 		return new JSONData(person);
 	}

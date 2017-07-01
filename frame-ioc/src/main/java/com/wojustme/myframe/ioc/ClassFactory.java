@@ -42,7 +42,7 @@ public final class ClassFactory {
 
   private static final List<String> COMPONENT_SCAN_PACKAGE_LIST;
 
-  private static Map<Class, Set<Class>> beanClassMap;
+//  private static Map<Class, Set<Class>> beanClassMap;
 
   static {
     String basePackage = AppConfigHelper.getAppScanBasePackage();
@@ -117,16 +117,30 @@ public final class ClassFactory {
       }
     }
 
-    beanClassMap = beanClassSetMap;
     return beanClassSetMap;
   }
 
 
 
-  public static Set getAnnotatedSetByAnnoClass(Class clazz) {
-    if (beanClassMap == null) {
-      beanClassMap = getBeanClassMap();
+  public static Set<Class<?>> getClassSetBySuper(Class<?> superClass) {
+    Set<Class<?>> classSet = new HashSet<>();
+    for (Class<?> cls : CLASS_SET) {
+      if (superClass.isAssignableFrom(cls) && !superClass.equals(classSet)) {
+        classSet.add(cls);
+      }
     }
-    return beanClassMap.get(clazz);
+    return classSet;
+  }
+
+  public static Set<Class<?>> getClassSetByAnnotation(Class<? extends Annotation> anntotationClass) {
+
+    Set<Class<?>> classSet = new HashSet<>();
+
+    for (Class<?> cls : CLASS_SET) {
+      if (cls.isAnnotationPresent(anntotationClass)) {
+        classSet.add(cls);
+      }
+    }
+    return classSet;
   }
 }

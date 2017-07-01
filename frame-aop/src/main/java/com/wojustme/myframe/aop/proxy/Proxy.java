@@ -1,10 +1,4 @@
-package com.wojustme.myframe.restful.helper;
-
-
-import com.wojustme.myframe.aop.helper.AopHelper;
-import com.wojustme.myframe.ioc.BeanFactory;
-import com.wojustme.myframe.ioc.ClassFactory;
-import com.wojustme.myframe.util.ClassUtil;
+package com.wojustme.myframe.aop.proxy;
 
 /**
  * ////////////////////////////////////////////////////////////////////
@@ -30,22 +24,9 @@ import com.wojustme.myframe.util.ClassUtil;
  * //             佛祖保佑       永无BUG     永不修改                   //
  * ////////////////////////////////////////////////////////////////////
  * <p>
- * wojustme于2017/6/23祈祷...
+ * wojustme于2017/7/1祈祷...
  */
-/**
- * 用于加载相应的Helper类
- */
-public final class HelperLoader {
-
-	public static void init() {
-		Class<?>[] classList = {
-        ClassFactory.class,
-        BeanFactory.class,
-        ControllerHelper.class,
-        AopHelper.class
-		};
-		for (Class<?> clazz : classList) {
-			ClassUtil.loadClass(clazz.getName(), true);
-		}
-	}
+public interface Proxy {
+  // 任何一个代理必须执行的方法
+  Object doProxy(ProxyChain proxyChain) throws Throwable;
 }

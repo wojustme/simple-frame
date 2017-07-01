@@ -1,10 +1,11 @@
-package com.wojustme.myframe.restful.helper;
+package com.wojustme.myframe.aop.proxy;
 
+import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.MethodInterceptor;
+import net.sf.cglib.proxy.MethodProxy;
 
-import com.wojustme.myframe.aop.helper.AopHelper;
-import com.wojustme.myframe.ioc.BeanFactory;
-import com.wojustme.myframe.ioc.ClassFactory;
-import com.wojustme.myframe.util.ClassUtil;
+import java.lang.reflect.Method;
+import java.util.List;
 
 /**
  * ////////////////////////////////////////////////////////////////////
@@ -30,22 +31,19 @@ import com.wojustme.myframe.util.ClassUtil;
  * //             佛祖保佑       永无BUG     永不修改                   //
  * ////////////////////////////////////////////////////////////////////
  * <p>
- * wojustme于2017/6/23祈祷...
+ * wojustme于2017/7/1祈祷...
  */
-/**
- * 用于加载相应的Helper类
- */
-public final class HelperLoader {
 
-	public static void init() {
-		Class<?>[] classList = {
-        ClassFactory.class,
-        BeanFactory.class,
-        ControllerHelper.class,
-        AopHelper.class
-		};
-		for (Class<?> clazz : classList) {
-			ClassUtil.loadClass(clazz.getName(), true);
-		}
-	}
+// 代理管理器
+public class ProxyManager {
+
+  public static <T> T createProxy(final Class<?> targetClass, final List<Proxy> proxyList) {
+    return (T) Enhancer.create(targetClass, new MethodInterceptor() {
+      @Override
+      public Object intercept(Object targetObject, Method targetMethod, Object[] methodParams, MethodProxy methodProxy) throws Throwable {
+        return new ProxyChain(targetClass, targetObject, targetMethod, methodProxy, methodParams, proxyList).doProxyChain();
+      }
+    });
+  }
+
 }

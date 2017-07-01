@@ -1,10 +1,8 @@
-package com.wojustme.myframe.restful.helper;
+package com.wojustme.myframe.aop.annotation;
 
+import com.wojustme.myframe.ioc.BeanComponet;
 
-import com.wojustme.myframe.aop.helper.AopHelper;
-import com.wojustme.myframe.ioc.BeanFactory;
-import com.wojustme.myframe.ioc.ClassFactory;
-import com.wojustme.myframe.util.ClassUtil;
+import java.lang.annotation.*;
 
 /**
  * ////////////////////////////////////////////////////////////////////
@@ -30,22 +28,13 @@ import com.wojustme.myframe.util.ClassUtil;
  * //             佛祖保佑       永无BUG     永不修改                   //
  * ////////////////////////////////////////////////////////////////////
  * <p>
- * wojustme于2017/6/23祈祷...
+ * wojustme于2017/7/1祈祷...
  */
-/**
- * 用于加载相应的Helper类
- */
-public final class HelperLoader {
+// 哪个类需要被代理，则在该类上加上Aspect注解
 
-	public static void init() {
-		Class<?>[] classList = {
-        ClassFactory.class,
-        BeanFactory.class,
-        ControllerHelper.class,
-        AopHelper.class
-		};
-		for (Class<?> clazz : classList) {
-			ClassUtil.loadClass(clazz.getName(), true);
-		}
-	}
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@BeanComponet
+public @interface Aspect {
+  Class<? extends Annotation> value();
 }

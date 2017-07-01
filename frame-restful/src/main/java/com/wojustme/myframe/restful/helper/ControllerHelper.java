@@ -62,7 +62,7 @@ public final class ControllerHelper {
 	private static void handlerController() {
 		// 获取所有的Controller类
 		// 从类工厂中获得到带有Controller注解的类
-		Set<Class<?>> controllerClassSet = ClassFactory.getAnnotatedSetByAnnoClass(Controller.class);
+		Set<Class<?>> controllerClassSet = ClassFactory.getClassSetByAnnotation(Controller.class);
 		if (CollectionUtil.isNotEmpty(controllerClassSet)) {
 			// 非空，遍历Controller类
 			for (Class<?> constrollerClass : controllerClassSet) {

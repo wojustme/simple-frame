@@ -13,6 +13,7 @@
     <module>start-web</module>
     <module>frame-util</module>
     <module>frame-ioc</module>
+    <module>frame-aop</module>
   </modules>
 
   <dependencies>

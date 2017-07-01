@@ -1,10 +1,12 @@
-package com.wojustme.myframe.restful.helper;
+package web.aspect;
 
+import com.wojustme.myframe.aop.annotation.Aspect;
+import com.wojustme.myframe.aop.proxy.AspectProxy;
+import com.wojustme.myframe.restful.annotation.Controller;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.wojustme.myframe.aop.helper.AopHelper;
-import com.wojustme.myframe.ioc.BeanFactory;
-import com.wojustme.myframe.ioc.ClassFactory;
-import com.wojustme.myframe.util.ClassUtil;
+import java.lang.reflect.Method;
 
 /**
  * ////////////////////////////////////////////////////////////////////
@@ -30,22 +32,32 @@ import com.wojustme.myframe.util.ClassUtil;
  * //             佛祖保佑       永无BUG     永不修改                   //
  * ////////////////////////////////////////////////////////////////////
  * <p>
- * wojustme于2017/6/23祈祷...
+ * wojustme于2017/7/1祈祷...
  */
-/**
- * 用于加载相应的Helper类
- */
-public final class HelperLoader {
+@Aspect(Controller.class)
+public class ControllerAspect extends AspectProxy {
 
-	public static void init() {
-		Class<?>[] classList = {
-        ClassFactory.class,
-        BeanFactory.class,
-        ControllerHelper.class,
-        AopHelper.class
-		};
-		for (Class<?> clazz : classList) {
-			ClassUtil.loadClass(clazz.getName(), true);
-		}
-	}
+  private static final Logger LOGGER = LoggerFactory.getLogger(ControllerAspect.class);
+
+  private long begin;
+
+  @Override
+  public void before(Class<?> cls, Method method, Object[] params) {
+    LOGGER.debug("-------begin-------");
+    begin = System.currentTimeMillis();
+  }
+
+  @Override
+  public void after(Class<?> cls, Method method, Object[] params) {
+    LOGGER.debug(String.format("time: %dms", System.currentTimeMillis() - begin));
+    LOGGER.debug("-------after-------");
+  }
+
+  @Override
+  public boolean intercept(Class<?> cls, Method method, Object[] params) {
+    if (method.getName().equals("index")) {
+      return false;
+    }
+    return true;
+  }
 }
