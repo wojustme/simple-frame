@@ -10,6 +10,6 @@
 3. frame-restful(restful接口风格，框架处理)
 4. start-web(启动一个web例子)
 5. frame-orm(一个面向sql的ORM框架)
-6. frame-com.wojustme.myframe.aop(面向切面的AOP框架)
+6. frame-aop(面向切面的AOP框架)
 
 ......
